@@ -1,0 +1,15 @@
+# Output files
+*.pdf
+output/
+
+# Personal data (use cv-data.example.typ as template)
+cv-data.typ
+
+# Editor/IDE
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
