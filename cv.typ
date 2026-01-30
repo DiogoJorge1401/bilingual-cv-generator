@@ -1,8 +1,16 @@
 // cv.typ — Template principal
-// Uso: typst compile cv.typ --input lang=en cv-en.pdf
-//      typst compile cv.typ --input lang=pt cv-pt.pdf
+// Uso: ./build-cv.sh <caminho-cv-data.typ> [lang|all]
+// Ex:  ./build-cv.sh cvs/vaga-01-nodejs-golang/cv-data-vaga01.typ pt
+//      ./build-cv.sh cvs/vaga-01-nodejs-golang/cv-data-vaga01.typ all
 
-#import "cv-data.typ": cv, labels
+// Arquivo de dados via CLI (obrigatório)
+#let data-path = sys.inputs.at("data", default: none)
+#if data-path == none {
+  panic("Erro: Passe o arquivo de dados via --input data=<caminho>")
+}
+
+// Import dinâmico (Typst 0.11+)
+#import data-path: cv, labels
 
 // Idioma via CLI (default: en)
 #let lang = sys.inputs.at("lang", default: "en")
