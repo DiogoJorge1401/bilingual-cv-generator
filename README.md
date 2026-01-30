@@ -5,35 +5,57 @@ Template de CV profissional em [Typst](https://typst.app/) com suporte a múltip
 ## Estrutura do Projeto
 
 ```
-├── cv.typ          # Template principal (layout e estilos)
-├── cv-data.typ     # Dados do CV (edite apenas este arquivo)
-├── build.sh        # Script para gerar ambos os PDFs
-└── README.md       # Este arquivo
+├── cv.typ                      # Template principal (layout e estilos)
+├── build-cv.sh                 # Script para gerar PDFs
+├── cv-data.example.typ         # Exemplo de arquivo de dados
+├── README.md
+└── cvs/
+    └── vaga-01-nodejs-golang/  # Pasta por vaga/versão
+        ├── cv-data-vaga01.typ  # Dados do CV
+        ├── vaga.md             # Descrição da vaga
+        ├── cv-data-vaga01-en.pdf  # Gerado
+        └── cv-data-vaga01-pt.pdf  # Gerado
 ```
 
 ## Uso
 
-### Compilação individual
+### Criar novo CV para uma vaga
+
+1. Crie uma pasta em `cvs/`:
+   ```bash
+   mkdir -p cvs/nome-da-vaga
+   ```
+
+2. Copie o exemplo de dados:
+   ```bash
+   cp cv-data.example.typ cvs/nome-da-vaga/cv-data.typ
+   ```
+
+3. Edite o arquivo de dados com suas informações
+
+4. Compile:
+   ```bash
+   ./build-cv.sh cvs/nome-da-vaga/cv-data.typ all
+   ```
+
+### Compilação
 
 ```bash
-# Inglês
-typst compile cv.typ --input lang=en cv-en.pdf
+# Gera apenas português
+./build-cv.sh cvs/vaga-01/cv-data.typ pt
 
-# Português
-typst compile cv.typ --input lang=pt cv-pt.pdf
+# Gera apenas inglês
+./build-cv.sh cvs/vaga-01/cv-data.typ en
+
+# Gera ambos (pt e en)
+./build-cv.sh cvs/vaga-01/cv-data.typ all
 ```
 
-### Build completo
-
-```bash
-./build.sh
-```
-
-Gera ambos os PDFs em `./output/`.
+Os PDFs são gerados na **mesma pasta** do arquivo de dados.
 
 ## Como editar o conteúdo
 
-Edite **apenas** o arquivo `cv-data.typ`. A estrutura suporta:
+Edite **apenas** o arquivo `cv-data.typ` da vaga. A estrutura suporta:
 
 ### Texto bilíngue
 
@@ -145,7 +167,7 @@ Ordem atual:
 
 ### Adicionar nova seção
 
-1. Adicione os dados em `cv-data.typ`
+1. Adicione os dados no seu `cv-data.typ`
 2. Adicione o label em `labels`
 3. Use `#section(t(labels.nova_secao))` em `cv.typ`
 
