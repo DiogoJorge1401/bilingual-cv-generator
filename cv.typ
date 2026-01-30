@@ -71,22 +71,31 @@
   v(4pt)
 }
 
-// Job title (h3)
-#let job-title(company, role, first: false) = {
+// Experiencia (mantém título + período + primeiro highlight juntos)
+#let experience(exp, first: false) = {
   if not first { v(14pt) }
-  text(13pt, weight: 600, fill: title-color)[#t(company) | #t(role)]
-}
 
-// Periodo (datas)
-#let period(date) = {
-  v(4pt)
-  text(10pt, weight: 400, style: "italic", fill: muted-color)[#t(date)]
-  v(4pt)
-}
+  // Primeiro highlight (se existir)
+  let first-highlight = if exp.highlights.len() > 0 {
+    let item = exp.highlights.at(0)
+    if "label" in item {
+      [*#t(item.label):* #t(item.desc)]
+    } else {
+      t(item.desc)
+    }
+  }
 
-// Lista de highlights
-#let highlights(items) = {
-  for item in items {
+  // Bloco não quebrável: título + período + primeiro highlight
+  block(breakable: false)[
+    #text(13pt, weight: 600, fill: title-color)[#t(exp.company) | #t(exp.role)]
+    #v(4pt)
+    #text(10pt, weight: 400, style: "italic", fill: muted-color)[#t(exp.period)]
+    #v(4pt)
+    #if first-highlight != none { list(first-highlight) }
+  ]
+
+  // Restante dos highlights (podem quebrar)
+  for item in exp.highlights.slice(1) {
     let content = if "label" in item {
       [*#t(item.label):* #t(item.desc)]
     } else {
@@ -96,16 +105,18 @@
   }
 }
 
-// Projeto
+// Projeto (breakable: false mantém título + corpo juntos)
 #let project(p, first: false) = {
   if not first { v(14pt) }
-  text(13pt, weight: 600, fill: title-color)[#t(p.title)]
-  v(4pt)
-  list(
-    [*#t(labels.problem):* #t(p.problem)],
-    [*#t(labels.solution):* #t(p.solution)],
-    [*#t(labels.value):* #t(p.value)],
-  )
+  block(breakable: false)[
+    #text(13pt, weight: 600, fill: title-color)[#t(p.title)]
+    #v(4pt)
+    #list(
+      [*#t(labels.problem):* #t(p.problem)],
+      [*#t(labels.solution):* #t(p.solution)],
+      [*#t(labels.value):* #t(p.value)],
+    )
+  ]
 }
 
 // Skills
@@ -126,9 +137,7 @@
 // EXPERIENCIA
 #section(t(labels.experience))
 #for (i, exp) in cv.experience.enumerate() {
-  job-title(exp.company, exp.role, first: i == 0)
-  period(exp.period)
-  highlights(exp.highlights)
+  experience(exp, first: i == 0)
 }
 
 // PROJETOS

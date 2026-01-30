@@ -100,6 +100,23 @@ link-color   = #2563eb  // Links (azul)
 
 Fallback stack: `Inter` → `Segoe UI` → `Liberation Sans`
 
+### Controle de quebra de página
+
+O template usa `block(breakable: false)` para evitar que títulos fiquem separados do conteúdo em quebras de página:
+
+- **Experiências**: Título + período + primeiro highlight ficam juntos
+- **Projetos**: Título + lista completa ficam juntos
+
+## ATS-Friendly
+
+O template foi otimizado para compatibilidade com sistemas ATS (Applicant Tracking Systems):
+
+- Estrutura linear sem colunas múltiplas
+- Nomes de seção padrão (Experience, Skills, Education)
+- Texto corrido, sem tabelas complexas
+- Sem gráficos ou elementos visuais que confundem parsers
+- PDF com texto selecionável/copiável
+
 ## Customização
 
 ### Alterar cores
