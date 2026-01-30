@@ -67,7 +67,7 @@
     line(length: 100%, stroke: 1pt + border-color)
     v(14pt)
   }
-  text(14pt, weight: 700, fill: title-color, tracking: 0.05em)[#upper(title)]
+  text(14pt, weight: 700, fill: title-color)[#title]
   v(12pt)
 }
 
@@ -123,19 +123,19 @@
 #section(t(labels.summary))
 #t(cv.summary)
 
-// SKILLS
-#section(t(labels.skills))
-#v(4pt)
-#for skill in cv.skills {
-  skill-line(skill.category, skill.items)
-}
-
 // EXPERIENCIA
 #section(t(labels.experience))
 #for exp in cv.experience {
   job-title(exp.company, exp.role)
   period(exp.period)
   highlights(exp.highlights)
+}
+
+// SKILLS
+#section(t(labels.skills))
+#v(4pt)
+#for skill in cv.skills {
+  skill-line(skill.category, skill.items)
 }
 
 // PROJETOS

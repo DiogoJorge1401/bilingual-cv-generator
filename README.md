@@ -120,8 +120,8 @@ Reordene os blocos na seção `// ============ DOCUMENTO ============` em `cv.ty
 Ordem atual:
 
 1. Summary
-2. Skills
-3. Experience
+2. Experience
+3. Skills
 4. Projects
 5. Education
 6. Languages
