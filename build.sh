@@ -6,7 +6,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-OUTPUT_DIR="../output"
+OUTPUT_DIR="./output"
 mkdir -p "$OUTPUT_DIR"
 
 echo "Compilando CV em Ingles..."

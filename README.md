@@ -29,7 +29,7 @@ typst compile cv.typ --input lang=pt cv-pt.pdf
 ./build.sh
 ```
 
-Gera ambos os PDFs em `../output/`.
+Gera ambos os PDFs em `./output/`.
 
 ## Como editar o conteúdo
 
