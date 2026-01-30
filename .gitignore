@@ -1,6 +1,7 @@
 # Output files
 *.pdf
 output/
+cvs/
 
 # Personal data (use cv-data.example.typ as template)
 cv-data.typ
