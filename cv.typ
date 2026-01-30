@@ -131,17 +131,17 @@
   highlights(exp.highlights)
 }
 
+// PROJETOS
+#section(t(labels.projects))
+#for (i, p) in cv.projects.enumerate() {
+  project(p, first: i == 0)
+}
+
 // SKILLS
 #section(t(labels.skills))
 #v(4pt)
 #for skill in cv.skills {
   skill-line(skill.category, skill.items)
-}
-
-// PROJETOS
-#section(t(labels.projects))
-#for (i, p) in cv.projects.enumerate() {
-  project(p, first: i == 0)
 }
 
 // EDUCACAO

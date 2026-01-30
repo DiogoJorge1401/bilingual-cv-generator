@@ -59,8 +59,8 @@ phone: "+55 (17) 99708-8617",
 | `contact`    | Phone, email, GitHub, LinkedIn      |
 | `summary`    | Resumo profissional                 |
 | `skills`     | Habilidades técnicas por categoria  |
-| `experience` | Experiências com highlights         |
 | `projects`   | Projetos com Problem/Solution/Value |
+| `experience` | Experiências com highlights         |
 | `education`  | Formação acadêmica                  |
 | `languages`  | Idiomas falados                     |
 
@@ -121,8 +121,8 @@ Ordem atual:
 
 1. Summary
 2. Experience
-3. Skills
-4. Projects
+3. Projects
+4. Skills
 5. Education
 6. Languages
 
