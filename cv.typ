@@ -68,12 +68,12 @@
     v(14pt)
   }
   text(14pt, weight: 700, fill: title-color)[#title]
-  v(12pt)
+  v(4pt)
 }
 
 // Job title (h3)
-#let job-title(company, role) = {
-  v(12pt)
+#let job-title(company, role, first: false) = {
+  if not first { v(14pt) }
   text(13pt, weight: 600, fill: title-color)[#t(company) | #t(role)]
 }
 
@@ -97,8 +97,8 @@
 }
 
 // Projeto
-#let project(p) = {
-  v(12pt)
+#let project(p, first: false) = {
+  if not first { v(14pt) }
   text(13pt, weight: 600, fill: title-color)[#t(p.title)]
   v(4pt)
   list(
@@ -125,8 +125,8 @@
 
 // EXPERIENCIA
 #section(t(labels.experience))
-#for exp in cv.experience {
-  job-title(exp.company, exp.role)
+#for (i, exp) in cv.experience.enumerate() {
+  job-title(exp.company, exp.role, first: i == 0)
   period(exp.period)
   highlights(exp.highlights)
 }
@@ -140,8 +140,8 @@
 
 // PROJETOS
 #section(t(labels.projects))
-#for p in cv.projects {
-  project(p)
+#for (i, p) in cv.projects.enumerate() {
+  project(p, first: i == 0)
 }
 
 // EDUCACAO
