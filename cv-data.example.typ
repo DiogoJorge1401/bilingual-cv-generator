@@ -14,6 +14,7 @@
     email: "jane.doe@email.com",
     github: "https://github.com/janedoe",
     linkedin: "https://www.linkedin.com/in/janedoe/",
+    location: "São Paulo, SP - Brasil",
   ),
 
   summary: (
