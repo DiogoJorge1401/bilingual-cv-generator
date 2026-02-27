@@ -60,9 +60,12 @@
 }
 
 // Contato
-#let contact-line(phone, email, github, linkedin) = {
+#let contact-line(phone, email, github, linkedin, location) = {
   set text(10pt, fill: muted-color)
   v(6pt)
+  if location != none [
+    #location #h(0.5em) • #h(0.5em)
+  ]
   [Phone: #phone #h(0.5em) • #h(0.5em) Email: #link("mailto:" + email)[#email]]
   linebreak()
   [GitHub: #link(github) #h(0.5em) • #h(0.5em) LinkedIn: #link(linkedin)]
@@ -136,41 +139,73 @@
 // ============ DOCUMENTO ============
 
 #header(cv.name, t(cv.title))
-#contact-line(cv.contact.phone, cv.contact.email, cv.contact.github, cv.contact.linkedin)
+#contact-line(
+  cv.contact.phone,
+  cv.contact.email,
+  cv.contact.github,
+  cv.contact.linkedin,
+  cv.contact.at("location", default: none)
+)
 
 // RESUMO
-#section(t(labels.summary))
-#t(cv.summary)
+#block(breakable: false)[
+  #section(t(labels.summary))
+  #t(cv.summary)
+]
 
 // EXPERIENCIA
-#section(t(labels.experience))
-#for (i, exp) in cv.experience.enumerate() {
-  experience(exp, first: i == 0)
+#block(breakable: false)[
+  #section(t(labels.experience))
+  #if cv.experience.len() > 0 {
+    experience(cv.experience.at(0), first: true)
+  }
+]
+#for exp in cv.experience.slice(1) {
+  experience(exp, first: false)
 }
 
 // PROJETOS
-#section(t(labels.projects))
-#for (i, p) in cv.projects.enumerate() {
-  project(p, first: i == 0)
+#block(breakable: false)[
+  #section(t(labels.projects))
+  #if cv.projects.len() > 0 {
+    project(cv.projects.at(0), first: true)
+  }
+]
+#for p in cv.projects.slice(1) {
+  project(p, first: false)
 }
 
 // SKILLS
-#section(t(labels.skills))
-#v(4pt)
-#for skill in cv.skills {
+#block(breakable: false)[
+  #section(t(labels.skills))
+  #v(4pt)
+  #if cv.skills.len() > 0 {
+    let skill = cv.skills.at(0)
+    skill-line(skill.category, skill.items)
+  }
+]
+#for skill in cv.skills.slice(1) {
   skill-line(skill.category, skill.items)
 }
 
 // EDUCACAO
-#section(t(labels.education))
-#v(4pt)
-#text(13pt, weight: 600, fill: title-color)[#t(cv.education.degree)] — #cv.education.institution
-#linebreak()
-#text(11pt, weight: 500, fill: muted-color)[#t(cv.education.period)]
+#block(breakable: false)[
+  #section(t(labels.education))
+  #v(4pt)
+  #text(13pt, weight: 600, fill: title-color)[#t(cv.education.degree)] — #cv.education.institution
+  #linebreak()
+  #text(11pt, weight: 500, fill: muted-color)[#t(cv.education.period)]
+]
 
 // IDIOMAS
-#section(t(labels.languages))
-#v(4pt)
-#for l in cv.languages {
+#block(breakable: false)[
+  #section(t(labels.languages))
+  #v(4pt)
+  #if cv.languages.len() > 0 {
+    let l = cv.languages.at(0)
+    list([#t(l.name) — #t(l.level)])
+  }
+]
+#for l in cv.languages.slice(1) {
   list([#t(l.name) — #t(l.level)])
 }
